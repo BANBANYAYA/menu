@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Duck_Bakery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    body {
+      background: #ffe4c6; /* 顶部、底部渐变区域的颜色 */
+      min-height: 100vh;
+    }
+
+    /* 顶部横幅 */
+    .header {
+      background: #ffba84;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.3rem 1.5rem;
+      border-radius: 999px;
+      background: #ffeedd;
+      border: 2px solid #f7a868;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 0.9rem;
+    }
+
+    .logo span {
+      margin: 0 0.4rem;
+    }
+
+    /* 中间内容大容器 */
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 4rem;
+    }
+
+    .panel {
+      background: #fff7ee;
+      border-radius: 24px;
+      padding: 1.5rem 1.3rem 2rem;
+      min-height: 70vh;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    /* 筛选区 */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .filter-btn {
+      border-radius: 999px;
+      border: 1px solid #ffba84;
+      background: #ffe8d4;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: #ffba84;
+      color: #fff;
+    }
+
+    .search-input {
+      margin-left: auto;
+      min-width: 180px;
+      max-width: 220px;
+      flex: 1;
+    }
+
+    .search-input input {
+      width: 100%;
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid #ffc292;
+      background: #fff;
+      font-size: 0.85rem;
+    }
+
+    /* 网格布局 */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem 2rem;
+    }
+
+    .card {
+      background: #ffdab7; /* 卡片颜色，接近你截图里的格子 */
+      border-radius: 12px;
+      padding: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 160px;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      cursor: default;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-img {
+      width: 100%;
+     aspect-ratio: 1 / 1;  /* ⭐ 强制 1:1 正方形 */
+     border-radius: 12px;
+     overflow: hidden;
+     background: #ffe8d4;
+     margin-bottom: 0.6rem;
+    }
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* ⭐ 图片铺满但不变形 */
+      display: block;
+    }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .card-meta {
+      font-size: 0.8rem;
+      color: #8b5c39;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: #6b4a2c;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.4rem;
+      font-size: 0.85rem;
+    }
+
+    .price {
+      font-weight: 700;
+      color: #b44a1a;
+    }
+
+    .tag {
+      padding: 0.12rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid #f7a868;
+      font-size: 0.7rem;
+      color: #8b5c39;
+      background: #ffeedd;
+    }
+
+    /* 底部柔和渐变做过渡 */
+    .bottom-fade {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 80px;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(255, 228, 198, 0), #ffe4c6);
+      z-index: -1;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .search-input {
+        flex-basis: 100%;
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部横幅 -->
+  <header class="header">
+    <div class="logo">
+      🦆
+      <span>Duck_Bakery</span>
+      🥐
+    </div>
+  </header>
+
+  <div class="page-wrap">
+    <div class="panel">
+      <!-- 筛选区 -->
+      <div class="filter-bar">
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">全部</button>
+          <button class="filter-btn" data-filter="sweet">甜面包</button>
+          <button class="filter-btn" data-filter="salty">咸口</button>
+          <button class="filter-btn" data-filter="special">今日推荐</button>
+        </div>
+
+        <div class="search-input">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="搜索面包名称或关键词…"
+          />
+        </div>
+      </div>
+
+      <!-- 面包网格 -->
+      <div class="grid" id="breadGrid">
+        <!-- 示例卡片：你之后可以自己复制/改名字/改价格 -->
+        <div
+          class="card"
+          data-category="sweet"
+          data-name="草莓奶油吐司"
+          data-keywords="草莓 奶油 软欧"
+        >
+          <div class="card-img">
+            <img src="烧鸭.jpg" alt="草莓奶油吐司">
+          </div>
+          <div class="card-title">草莓奶油吐司</div>
+          <div class="card-meta">柔软吐司 · 鲜奶油 · 草莓果酱</div>
+          <div class="card-desc">
+            使用鲜牛奶和进口黄油，入口松软香甜，非常适合搭配早餐咖啡。
+          </div>
+          <div class="card-footer">
+            <span class="price">¥18</span>
+            <span class="tag">甜面包</span>
+          </div>
+        </div>
+
+        <div
+          class="card"
+          data-category="sweet"
+          data-name="巧克力可颂"
+          data-keywords="可颂 牛角 面包 巧克力"
+        >
+          <div class="card-img">这里可以放巧克力可颂的照片</div>
+          <div class="card-title">巧克力可颂</div>
+          <div class="card-meta">千层酥皮 · 黑巧克力夹心</div>
+          <div class="card-desc">
+            经典法式可颂，外酥里嫩，每一口都有浓郁的巧克力香。
+          </div>
+          <div class="card-footer">
+            <span class="price">¥15</span>
+            <span class="tag">甜面包</span>
+          </div>
+        </div>
+
+        <div
+          class="card"
+          data-category="salty"
+          data-name="培根芝士面包"
+          data-keywords="培根 芝士 咸面包"
+        >
+          <div class="card-img">咸口面包的示意图</div>
+          <div class="card-title">培根芝士面包</div>
+          <div class="card-meta">厚切培根 · 芝士拉丝</div>
+          <div class="card-desc">
+            适合作为正餐或加餐，一口下去是扎实的满足感。
+          </div>
+          <div class="card-footer">
+            <span class="price">¥16</span>
+            <span class="tag">咸口</span>
+          </div>
+        </div>
+        
+          <div
+          class="card"
+          data-category="salty"
+          data-name="培根芝士面包111"
+          data-keywords="培根 芝士 咸面包"
+        >
+          <div class="card-img">咸口面包的示意图</div>
+          <div class="card-title">培根芝士面包</div>
+          <div class="card-meta">厚切培根 · 芝士拉丝</div>
+          <div class="card-desc">
+            适合作为正餐或加餐，一口下去是扎实的满足感。
+          </div>
+          <div class="card-footer">
+            <span class="price">¥16</span>
+            <span class="tag">咸口</span>
+          </div>
+        </div>
+        <div
+          class="card"
+          data-category="salty"
+          data-name="香葱火腿包"
+          data-keywords="香葱 火腿 葱香"
+        >
+          <div class="card-img">香葱火腿包示意图</div>
+          <div class="card-title">香葱火腿包</div>
+          <div class="card-meta">经典中式面包 · 葱香四溢</div>
+          <div class="card-desc">
+            轻盈蓬松的面团包裹火腿丁和葱花，热的时候最好吃。
+          </div>
+          <div class="card-footer">
+            <span class="price">¥9</span>
+            <span class="tag">咸口</span>
+          </div>
+        </div>
+
+        <div
+          class="card"
+          data-category="special"
+          data-name="芝士流心软欧包"
+          data-keywords="芝士 流心 软欧 今日特价"
+        >
+          <div class="card-img">今日推荐产品示意图</div>
+          <div class="card-title">芝士流心软欧包</div>
+          <div class="card-meta">今日推荐 · 每日限量</div>
+          <div class="card-desc">
+            外层柔软有嚼劲，内芯是香浓芝士流心，刚出炉时是最佳赏味期。
+          </div>
+          <div class="card-footer">
+            <span class="price">¥20</span>
+            <span class="tag">今日推荐</span>
+          </div>
+        </div>
+
+        <div
+          class="card"
+          data-category="special sweet"
+          data-name="季节限定水果塔"
+          data-keywords="水果塔 限定 甜点"
+        >
+          <div class="card-img">季节水果塔示意图</div>
+          <div class="card-title">季节限定水果塔</div>
+          <div class="card-meta">时令水果 · 轻奶油</div>
+          <div class="card-desc">
+            根据季节更换水果，例如草莓、蓝莓、芒果等，可作为下午茶主角。
+          </div>
+          <div class="card-footer">
+            <span class="price">¥26</span>
+            <span class="tag">甜点</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-fade"></div>
+
+  <script>
+    // 筛选逻辑
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const cards = document.querySelectorAll(".card");
+    const searchInput = document.getElementById("searchInput");
+
+    function applyFilter() {
+      const activeBtn = document.querySelector(".filter-btn.active");
+      const filter = activeBtn ? activeBtn.dataset.filter : "all";
+      const keyword = searchInput.value.trim().toLowerCase();
+
+      cards.forEach((card) => {
+        const category = card.dataset.category || "";
+        const name = (card.dataset.name || "").toLowerCase();
+        const kwords = (card.dataset.keywords || "").toLowerCase();
+
+        const matchCategory =
+          filter === "all" || category.split(" ").includes(filter);
+        const matchKeyword =
+          !keyword || name.includes(keyword) || kwords.includes(keyword);
+
+        if (matchCategory && matchKeyword) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        applyFilter();
+      });
+    });
+
+    searchInput.addEventListener("input", applyFilter);
+  </script>
+</body>
+</html>
