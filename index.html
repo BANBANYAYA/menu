@@ -17,7 +17,7 @@
       background: #ffe4c6; /* 顶部、底部渐变区域的颜色 */
       min-height: 100vh;
     }
-
+ 
     /* 顶部横幅 */
     .header {
       background: #ffba84;
@@ -30,6 +30,14 @@
       z-index: 10;
     }
 
+    .logo-icon {
+      height: 22px; /* 图标大小可以改，比如 24px / 32px */
+      width: auto;
+      margin: 0 6px;
+
+    }
+
+    
     .logo {
       display: inline-flex;
       align-items: center;
@@ -214,7 +222,7 @@
   <!-- 顶部横幅 -->
   <header class="header">
     <div class="logo">
-      🦆
+      <img src="鸭子.png" class="logo-icon">
       <span>Duck_Bakery</span>
       🥐
     </div>
