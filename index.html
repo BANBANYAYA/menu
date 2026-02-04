@@ -464,7 +464,7 @@
           class="card"
           data-category="new mix special"
           data-name="蜂蜜黄油吐司"
-          data-keywords="抹茶牛奶哈斯 抹茶"
+          data-keywords="蜂蜜 黄油 吐司"
         >
           <div class="card-img">
             <img src="蜂蜜黄油吐司.png" alt="蜂蜜黄油吐司">
@@ -1174,7 +1174,7 @@
           </div>
           <div class="card-title">提拉米苏菠萝包</div>
           <div class="card-meta"> 不可邮寄 </div>
-          <div class="card-desc">
+          <div class="card-desc"> 非常驻产品
             
           </div>
           <div class="card-footer">
@@ -1195,7 +1195,7 @@
           </div>
           <div class="card-title">抹茶提拉米苏菠萝包</div>
           <div class="card-meta"> 不可邮寄 </div>
-          <div class="card-desc">
+          <div class="card-desc"> 非常驻产品
             
           </div>
           <div class="card-footer">
@@ -1258,7 +1258,7 @@
 
 
 
-        <div
+        <!-- <div
           class="card"
           data-category="tart"
           data-name="抹茶奶冻盘挞"
@@ -1274,12 +1274,12 @@
           </div>
           <div class="card-footer">
             <span class="price">
-                <!-- 1 pc   $5.00<br> -->
-                2 pcs   $9.00
+                1 pc   $5.00<br> -->
+                <!-- 2 pcs   $9.00
             </span>
             <span class="tag">盘挞</span>
           </div>
-        </div>
+        </div> -->
 
 
 
@@ -1670,9 +1670,18 @@
       });
     });
 
-    searchInput.addEventListener("input", applyFilter);
-    searchInput.value = "";
+    searchInput.addEventListener("input", () => {
+    const keyword = searchInput.value.trim();
+
+    // 只要开始搜索，就自动切换到「全部」
+    if (keyword !== "") {
+      filterButtons.forEach(b => b.classList.remove("active"));
+      const allBtn = document.querySelector('[data-filter="all"]');
+      if (allBtn) allBtn.classList.add("active");
+    }
+
     applyFilter();
+  });
 
 
     // 把标签移动到标题右侧（同一行）
