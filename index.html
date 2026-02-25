@@ -358,6 +358,66 @@
       color:#fff;
     }
 
+
+    /* 公告弹窗 */
+
+    .notice-mask{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.35);
+    display: none;           /* 默认隐藏，JS 打开 */
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 16px;
+  }
+  .notice-mask.show{ display: flex; }
+
+  .notice-box{
+    width: min(520px, 100%);
+    background: #fff7ee;
+    border: 2px solid #ffba84;
+    border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.18);
+    overflow: hidden;
+    position: relative;
+  }
+  .notice-header{
+    padding: 12px 14px;
+    background: #ffdab7;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .notice-title{
+    font-weight: 700;
+    font-size: 16px;
+    color: #6b4a2c;
+  }
+  .notice-close{
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    padding: 6px 8px;
+    border-radius: 10px;
+  }
+  .notice-close:hover{ background: rgba(255,255,255,.6); }
+
+  .notice-body{
+    padding: 14px;
+    color: #6b4a2c;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .notice-body .hint{
+    margin-top: 10px;
+    font-size: 12px;
+    color: #8b5c39;
+  }
+/* 公告弹窗 */
     @media (max-width: 768px) {
       .cart-panel{
         right: 10px;
@@ -378,6 +438,30 @@
     </div>
   </header>
 
+
+
+<div id="noticeMask" class="notice-mask" role="dialog" aria-modal="true">
+  <div class="notice-box">
+    <div class="notice-header">
+      <div class="notice-title">公告</div>
+      <button id="noticeClose" class="notice-close" aria-label="关闭公告">✕</button>
+    </div>
+    <div class="notice-body">
+  <div>欢迎来到 Duck_Bakery！</div>
+  <div>请选好产品加入购物车并截图微信下单。</div>
+  <div>下单请加微信：Duck_Bakery</div>
+  <div>下单时请备注：吐司是 250g 或 450g，以及黄油年糕的数量。</div>
+  <div>由于吐司产量有限，邮寄限购：一个 250g + 一个 450g。</div>
+  <div class="hint">点击右上角 ✕ 可关闭</div>
+</div>
+  </div>
+</div>
+
+
+
+
+
+
   <div class="page-wrap">
     <div class="panel">
       <!-- 筛选区 -->
@@ -393,7 +477,7 @@
           <button class="filter-btn" data-filter="tart">盘挞</button>
           <!-- <button class="filter-btn" data-filter="bagel">贝果球</button> -->
           <button class="filter-btn" data-filter="butter">黄油年糕</button>
-          <!-- <button class="filter-btn" data-filter="rice">米面包</button> -->
+          <button class="filter-btn" data-filter="rice">米面包</button>
           <button class="filter-btn" data-filter="health">低油低糖</button>
           <button class="filter-btn" data-filter="cakebox">蛋糕盒子</button>
           <button class="filter-btn" data-filter="mix">其他</button>
@@ -535,7 +619,7 @@
 
         
 
-        <div
+      <div
           class="card"
           data-category="toast "
           data-name="红豆肉松吐司"
@@ -558,6 +642,27 @@
         </div>
 
 
+
+        <div
+          class="card"
+          data-category="toast special"
+          data-name="黑芝麻吐司"
+          data-keywords="黑芝麻 吐司"
+        >
+          <div class="card-img">
+            <img src="黑芝麻吐司.jpg" alt="黑芝麻吐司">
+          </div>
+          <div class="card-title">黑芝麻吐司</div>
+          <div class="card-meta">  </div>
+          <div class="card-desc"> 这一款没有250g的哦 ~
+            
+          </div>
+          <div class="card-footer">
+            <span class="price">
+              450g $18 
+            <span class="tag">吐司</span>
+          </div>
+        </div>
 
         <div
           class="card"
@@ -651,7 +756,7 @@
         </div>
 
 
-        <div
+        <!-- <div
           class="card"
           data-category="toast"
           data-name="三重巧克力牛乳吐司"
@@ -671,7 +776,7 @@
               450g   $16</span>
             <span class="tag">吐司</span>
           </div>
-        </div>
+        </div> -->
 
         <!-- <div
           class="card"
@@ -1427,7 +1532,7 @@
         </div>
 
 
-        <div
+      <div
           class="card"
           data-category="rice new"
           data-name="芋泥紫米米面包"
@@ -1445,11 +1550,98 @@
             <span class="price">$8</span>
             <span class="tag">米面包</span>
           </div>
-        </div> -->
+        </div> -->    
+
+      <div
+          class="card"
+          data-category="rice"
+          data-name="开心果蓝莓米面包"
+          data-keywords="开心果 蓝莓 米面包 "
+        >
+          <div class="card-img">
+            <img src="开心果蓝莓米面包.jpg" alt="开心果蓝莓米面包">
+          </div>
+          <div class="card-title">芋泥紫米米面包</div>
+          <div class="card-meta">  </div>
+          <div class="card-desc">
+            
+          </div>
+          <div class="card-footer">
+            <span class="price">$9</span>
+            <span class="tag">米面包</span>
+          </div>
+        </div>
+
+
+
+        <div
+          class="card"
+          data-category="rice"
+          data-name="三重抹茶米面包"
+          data-keywords="抹茶 米面包 "
+        >
+          <div class="card-img">
+            <img src="三重抹茶米面包.jpg" alt="三重抹茶米面包">
+          </div>
+          <div class="card-title">三重抹茶米面包</div>
+          <div class="card-meta">  </div>
+          <div class="card-desc">
+            
+          </div>
+          <div class="card-footer">
+            <span class="price">$9</span>
+            <span class="tag">米面包</span>
+          </div>
+        </div>
+
+
+
+         <div
+          class="card"
+          data-category="rice"
+          data-name="三重抹茶米面包"
+          data-keywords="抹茶 米面包 "
+        >
+          <div class="card-img">
+            <img src="三重抹茶米面包.jpg" alt="三重抹茶米面包">
+          </div>
+          <div class="card-title">三重抹茶米面包</div>
+          <div class="card-meta">  </div>
+          <div class="card-desc">
+            
+          </div>
+          <div class="card-footer">
+            <span class="price">$9</span>
+            <span class="tag">米面包</span>
+          </div>
+        </div>
+
+
+         <div
+          class="card"
+          data-category="rice"
+          data-name="抹茶豆乳米面包"
+          data-keywords="抹茶 豆乳 米面包 "
+        >
+          <div class="card-img">
+            <img src="抹茶豆乳米面包.jpg" alt="抹茶豆乳米面包">
+          </div>
+          <div class="card-title">抹茶豆乳米面包</div>
+          <div class="card-meta">  </div>
+          <div class="card-desc">
+            
+          </div>
+          <div class="card-footer">
+            <span class="price">$9</span>
+            <span class="tag">米面包</span>
+          </div>
+        </div>
+
+
 <!-- 米面包区域  --> 
 
 <!-- 杂货区域  --> 
-          <div
+        <div
           class="card"
           data-category="butter special"
           data-name="黄油年糕"
@@ -1472,7 +1664,27 @@
           </div>
         </div>
 
-
+        <div
+          class="card"
+          data-category="mix special"
+          data-name="抹茶流心酥皮塔"
+          data-keywords="抹茶流心酥皮塔"
+        >
+          <div class="card-img">
+            <img src="抹茶流心酥皮塔.jpg" alt="抹茶流心酥皮塔">
+          </div>
+          <div class="card-title">抹茶流心酥皮塔</div>
+          <div class="card-meta">  </div>
+          <div class="card-desc">
+            
+          </div>
+          <div class="card-footer">
+            <span class="price">
+                1 pc   $10.00
+            </span>
+            <span class="tag">酥皮塔</span>
+          </div>
+        </div>
 
         <!-- <div
           class="card"
@@ -1673,6 +1885,8 @@
     searchInput.addEventListener("input", () => {
     const keyword = searchInput.value.trim();
 
+
+    
     // 只要开始搜索，就自动切换到「全部」
     if (keyword !== "") {
       filterButtons.forEach(b => b.classList.remove("active"));
@@ -1860,7 +2074,33 @@
 
     // 初始化渲染
     renderCart();
+    // ===== 公告弹窗逻辑 =====
+const noticeMask = document.getElementById("noticeMask");
+const noticeClose = document.getElementById("noticeClose");
 
+// 页面加载完就显示
+window.addEventListener("load", () => {
+  noticeMask.classList.add("show");
+});
+
+// 点 X 关闭
+noticeClose.addEventListener("click", () => {
+  noticeMask.classList.remove("show");
+});
+
+// 点遮罩关闭
+noticeMask.addEventListener("click", (e) => {
+  if (e.target === noticeMask) {
+    noticeMask.classList.remove("show");
+  }
+});
+
+// 按 ESC 关闭
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    noticeMask.classList.remove("show");
+  }
+});
   </script>
 </body>
 </html>
