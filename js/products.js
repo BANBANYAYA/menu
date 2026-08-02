@@ -44,15 +44,15 @@ const PRODUCTS = [
     "price": "250g $15 / 450g $23",
     "tag": "吐司"
   },
-  {
-    "category": "toast",
-    "name": "红豆肉松吐司",
-    "keywords": "红豆 肉松 红豆肉松 吐司",
-    "image": "红豆肉松吐司.png",
-    "description": "",
-    "price": "250g $15 / 450g $23",
-    "tag": "吐司"
-  },
+  // {
+  //   "category": "toast",
+  //   "name": "红豆肉松吐司",
+  //   "keywords": "红豆 肉松 红豆肉松 吐司",
+  //   "image": "红豆肉松吐司.png",
+  //   "description": "",
+  //   "price": "250g $15 / 450g $23",
+  //   "tag": "吐司"
+  // },
   {
     "category": "toast special",
     "name": "黑芝麻吐司",
@@ -138,7 +138,7 @@ const PRODUCTS = [
     "category": "jianshui special",
     "name": "蔓越莓乳酪碱水",
     "keywords": "蔓越莓 乳酪 碱水",
-    "image": "蔓越莓碱水.png",
+    "image": "蔓越莓乳酪碱水.png",
     "description": "",
     "price": "$8",
     "tag": "碱水面包"
