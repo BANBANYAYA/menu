@@ -10,7 +10,7 @@
 <body>
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Duck Bakery 首页">
-      <img class="brand-mark" src="images-styled/duck-handdrawn.png" alt="" width="36" height="36">
+      <img class="brand-mark" src="images-styled/optimized/duck-icon.webp" alt="" width="36" height="36">
       <strong>Duck Bakery</strong>
     </a>
     <button class="cart-chip" id="cartOpen" type="button" aria-controls="cartDrawer" aria-expanded="false">
@@ -43,11 +43,17 @@
   <aside id="cartDrawer" class="cart-drawer" role="dialog" aria-labelledby="cartTitle" aria-hidden="true" inert>
     <div class="drawer-head"><h2 id="cartTitle">购物袋</h2><button id="cartClose" class="icon-btn" type="button" aria-label="关闭购物袋">×</button></div>
     <div id="cartItems" class="cart-items"></div>
-    <div class="drawer-foot"><p>共 <strong id="cartTotal">0</strong> 件</p><div class="drawer-actions"><button id="cartClear" class="button secondary">清空</button><button id="cartCopy" class="button primary">复制清单</button></div></div>
+    <div class="drawer-foot">
+      <div class="cart-summary"><p>共 <strong id="cartTotal">0</strong> 份</p><div><span>商品合计</span><strong id="cartAmount">$0.00</strong></div></div>
+      <p id="cartPending" class="cart-pending" role="status" hidden></p>
+      <div class="drawer-actions"><button id="cartClear" type="button" class="button secondary">清空</button><button id="cartCopy" type="button" class="button primary">复制清单</button></div>
+    </div>
   </aside>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="js/products.js"></script>
+  <script src="js/images.js"></script>
+  <script src="js/cart-core.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
