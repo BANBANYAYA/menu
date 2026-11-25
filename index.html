@@ -10,46 +10,38 @@
 <body>
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Duck Bakery 首页">
-      <img src="images/鸭子.png" alt="" width="36" height="36">
-      <span><strong>Duck Bakery</strong><small>小鸭手作烘焙</small></span>
+      <img class="brand-mark" src="images-styled/duck-handdrawn.png" alt="" width="36" height="36">
+      <strong>Duck Bakery</strong>
     </a>
-    <button class="cart-chip" id="cartOpen" type="button" aria-controls="cartDrawer">
+    <button class="cart-chip" id="cartOpen" type="button" aria-controls="cartDrawer" aria-expanded="false">
       购物袋 <span id="cartCount">0</span>
     </button>
   </header>
 
   <main id="top" class="page-shell">
-    <section class="hero">
-      <p class="eyebrow">FRESHLY BAKED · 用心慢慢烤</p>
-      <h1>今天，想吃点什么？</h1>
-      <p>柔软的吐司、香香的碱水，还有一点让心情变好的甜。</p>
-      <div class="hero-dots" aria-hidden="true"><i></i><i></i><i></i></div>
-    </section>
+    <div class="hero">
+      <h1>Duck Bakery</h1>
+    </div>
 
-    <section class="menu-panel" aria-labelledby="menuTitle">
-      <div class="section-heading">
-        <div><p class="eyebrow">OUR MENU</p><h2 id="menuTitle">面包菜单 <i aria-hidden="true"></i></h2></div>
-        <span id="resultCount" class="result-count"></span>
-      </div>
+    <section class="menu-panel" aria-label="面包菜单">
       <div class="toolbar">
         <div id="filters" class="filters" aria-label="商品分类"></div>
         <label class="search-box">
-          <span aria-hidden="true">⌕</span>
-          <input id="searchInput" type="search" placeholder="搜索口味或面包…" autocomplete="off">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+          <input id="searchInput" type="search" placeholder="搜索面包" aria-label="搜索口味或面包" autocomplete="off">
         </label>
       </div>
+      <span id="resultCount" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></span>
       <div id="productGrid" class="product-grid"></div>
       <div id="emptyState" class="empty-state" hidden>
-        <span>🦆</span><h3>没有找到这款面包</h3><p>换个关键词，或者看看其他分类吧。</p>
+        <p>没有找到相关面包</p>
       </div>
     </section>
   </main>
 
-  <footer><img src="images/鸭子.png" alt="" width="30"><p>谢谢你来逛小鸭面包店 ♡</p></footer>
-
   <div id="drawerMask" class="drawer-mask" hidden></div>
-  <aside id="cartDrawer" class="cart-drawer" aria-labelledby="cartTitle" aria-hidden="true">
-    <div class="drawer-head"><div><p class="eyebrow">YOUR BAG</p><h2 id="cartTitle">购物袋</h2></div><button id="cartClose" class="icon-btn" aria-label="关闭购物袋">×</button></div>
+  <aside id="cartDrawer" class="cart-drawer" role="dialog" aria-labelledby="cartTitle" aria-hidden="true" inert>
+    <div class="drawer-head"><h2 id="cartTitle">购物袋</h2><button id="cartClose" class="icon-btn" type="button" aria-label="关闭购物袋">×</button></div>
     <div id="cartItems" class="cart-items"></div>
     <div class="drawer-foot"><p>共 <strong id="cartTotal">0</strong> 件</p><div class="drawer-actions"><button id="cartClear" class="button secondary">清空</button><button id="cartCopy" class="button primary">复制清单</button></div></div>
   </aside>
